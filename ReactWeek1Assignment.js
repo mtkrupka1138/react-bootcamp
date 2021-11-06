@@ -12,15 +12,44 @@ class Bootcamp {
         this.level = level;
         this.students = students;
     }
-    registerStudent(studentToRegister) {
-        let checkStudents = this.students.filter(student => student.email === studentToRegister.email)
+    // method with ternary notation
+    registerStudentTernary(studentToRegister) {
+        const checkStudents = this.students.filter(student => student.email === studentToRegister.email);
+        (checkStudents.length === 0) ? (
+            this.students.push(studentToRegister),
+            console.log(`Registering ${studentToRegister.name} to the ${this.name} Bootcamp.`),
+            this.students) 
+            : (console.log(`${studentToRegister.name} is already registered for the ${this.name} Bootcamp.`))
+    }
+    
+    // method using filter with if/else statement
+    registerStudentIfElse(studentToRegister) {
+        const checkStudents = this.students.filter(student => student.email === studentToRegister.email);
         if (checkStudents.length === 0) {
             this.students.push(studentToRegister);
-            console.log(`Registering ${studentToRegister.name} to the Web Development Bootcamp.`);
+            console.log(`Registering ${studentToRegister.name} to the ${this.name} Bootcamp.`);
             return this.students;
         }
-        else {console.log(`${studentToRegister.name} is already registered for this bootcamp!`)}
+        else {console.log(`${studentToRegister.name} is already registered for the ${this.name} Bootcamp.`)}
+    }
+
+    // method using includes with if/else
+    registerStudentIncludes(studentToRegister) {
+        if (this.students.includes(studentToRegister)) {
+            console.log(`${studentToRegister.name} is already registered for the ${this.name} Bootcamp.`)
+        }
+        else {
+            this.students.push(studentToRegister);
+            console.log(`Registering ${studentToRegister.name} to the ${this.name} Bootcamp.`);
+            return this.students;
+        }
     }
 }
+
+        
+
+
+        
+
 
 
