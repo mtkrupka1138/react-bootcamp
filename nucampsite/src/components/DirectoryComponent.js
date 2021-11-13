@@ -14,6 +14,7 @@ class Directory extends Component {
         this.setState({selectedCampsite: campsite});
     }
 
+
     render() {
         const directory = this.props.campsites.map(campsite => {
             return (
