@@ -51,6 +51,14 @@ class Main extends Component {
             );
         }; 
 
+        const PartnerWithId = ({match}) => {
+            return (
+                <About
+                    partner={this.state.partners.filter(partner => partner.id === +match.params.partnerId)[0]}
+                />
+            );
+        }; 
+
         return (
             <div>
                 <Header />
@@ -58,6 +66,8 @@ class Main extends Component {
                     <Route path='/home' component={HomePage} />
                     <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites} />} />
                     <Route path='/directory/:campsiteId' component={CampsiteWithId} />
+                    <Route exact path='/aboutus' render={() => <About partners={this.state.partners} />} />
+                    <Route path='/about/:partnerId' component={PartnerWithId} />
                     <Route exact path='/contactus' component={Contact} />
                     <Redirect to='/home' />
                 </Switch>
