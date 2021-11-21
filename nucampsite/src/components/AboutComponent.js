@@ -7,7 +7,9 @@ function About(props) {
 
     const partners = props.partners.map(partner => {
         return (
-            <Media tag="li" key={partner.id}><RenderPartner partner={partner}/></Media>
+            <Media tag="li" key={partner.id}>
+                <RenderPartner partner={partner}/>
+            </Media>
         );
     });
 
@@ -73,20 +75,22 @@ function About(props) {
     );
 }
 
-function RenderPartner({partner}) {
 
+function RenderPartner({partner}) {
+    const {id, name, image, featured, description} = partner
     if (partner) {
         return (
             <React.Fragment>
-                <Media object src={partner.image} alt={partner.name} width="150" />
+                <Media object src={image} alt={name} width="150"/>
                 <Media body className="ml-5 mb-4">
-                    <Media heading>{partner.name}</Media>
-                    {partner.description}
+                    <Media heading>{name}</Media>
+                    {description}
                 </Media>
             </React.Fragment>
         );
     }
     return (<div></div>);
 }
+
 
 export default About;
