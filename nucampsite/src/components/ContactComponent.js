@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, FormFeedback, Label, Input, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
