@@ -119,11 +119,11 @@ class CommentForm extends Component {
                 <Button outline onClick={this.toggleModal}><i className="fa fa-pencil fa-lg" />Submit Comment</Button>
 
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
+                    <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
                     <LocalForm onSubmit={values => this.handleSubmit(values)}>
                             <Row className="form-group">
-                                <Label htmlFor="authorName" md={2}>First Name</Label>
+                                <Label htmlFor="authorName" md={2}>Full Name</Label>
                                 <Col md={10}>
                                 <Control.text model=".authorName" id="authorName" name="authorName"
                                         placeholder="Full Name"
@@ -148,58 +148,9 @@ class CommentForm extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="phoneNum" md={2}>Phone</Label>
-                                <Col md={10}>
-                                    <Control.text model=".phoneNum" id="phoneNum" name="phoneNum"
-                                        placeholder="Phone number"
-                                        className="form-control"
-                                        validators={{
-                                            required,
-                                            minLength: minLength(10),
-                                            maxLength: maxLength(15),
-                                            isNumber
-                                        }}
-                                    />
-                                    <Errors
-                                        className="text-danger"
-                                        model=".phoneNum"
-                                        show="touched"
-                                        component="div"
-                                        messages={{
-                                            required: 'Required',
-                                            minLength: 'Must be at least 10 numbers',
-                                            maxLength: 'Must be 15 numbers or less',
-                                            isNumber: 'Must be a number'
-                                        }}
-                                    />
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Label htmlFor="email" md={2}>Email</Label>
-                                <Col md={10}>
-                                    <Control.text model=".email" id="email" name="email"
-                                        placeholder="Email"
-                                        className="form-control"
-                                        validators={{
-                                            required,
-                                            validEmail
-                                        }}
-                                    />
-                                    <Errors
-                                        className="text-danger"
-                                        model=".email"
-                                        show="touched"
-                                        component="div"
-                                        messages={{
-                                            required: 'Required',
-                                            validEmail: 'Invalid email address'
-                                        }}
-                                    />
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
+                                <Label htmlFor="rating" md={2}>Rating</Label>
                                 <Col md={4}>
-                                    <Control.select model=".contactType" name="contactType"
+                                    <Control.select model=".rating" name="rating"
                                         className="form-control">
                                         <option>1</option>
                                         <option>2</option>
