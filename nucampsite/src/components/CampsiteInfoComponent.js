@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, 
-    Modal, ModalHeader, ModalBody, Col, Row, Label } from 'reactstrap';
+    Modal, ModalHeader, ModalBody, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
 const minLength = len => val => val && (val.length >= len);
-const isNumber = val => !isNaN(+val);
-const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 
 function RenderCampsite({campsite}) {
@@ -74,12 +72,13 @@ class CommentForm extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.state = {
             isModalOpen: false,
-            authorName: '',
-            authorComment: '',
             rating: '',
+            author: '',
             text: '',
             touched: {
-                authorName: false
+                rating: false,
+                author: false,
+                text: false
             }
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -101,7 +100,7 @@ class CommentForm extends Component {
     handleInputChange(event) {
         const target = event.target;
         const name = target.name;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.type === 'select' ? target.select : target.value;
     
         this.setState({
             [name]: value
@@ -122,61 +121,45 @@ class CommentForm extends Component {
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
                     <LocalForm onSubmit={values => this.handleSubmit(values)}>
-                            <Row className="form-group">
-                                <Label htmlFor="authorName" md={2}>Full Name</Label>
-                                <Col md={10}>
-                                <Control.text model=".authorName" id="authorName" name="authorName"
-                                        placeholder="Full Name"
-                                        className="form-control"
-                                        validators={{
-                                            required, 
-                                            minLength: minLength(2),
-                                            maxLength: maxLength(15)
-                                        }}
-                                    />
-                                    <Errors
-                                        className="text-danger"
-                                        model=".authorName"
-                                        show="touched"
-                                        component="div"
-                                        messages={{
-                                            required: 'Required',
-                                            minLength: 'Must be at least 2 characters',
-                                            maxLength: 'Must be 15 characters or less'
-                                        }}
-                                    />
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Label htmlFor="rating" md={2}>Rating</Label>
-                                <Col md={4}>
-                                    <Control.select model=".rating" name="rating"
-                                        className="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </Control.select>
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Label htmlFor="authorComment" md={2}>Comment</Label>
-                                <Col md={10}>
-                                    <Control.textarea model=".authorComment" id="authorComment" name="authorComment"
-                                        rows="12"
-                                        className="form-control"
-                                    />
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Col md={{size: 10, offset: 2}}>
-                                    <Button type="submit" color="primary">
-                                        Submit
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </LocalForm>
+                        <div className="form-group">
+                            <Label htmlFor="rating">Rating</Label>
+                                <Control.select model=".rating" id="rating" name="rating" className="form-control" defaultValue={1}>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </Control.select>
+                        </div>
+                        <div className="form-group">
+                            <Label htmlFor="author">Your Name</Label>
+                                <Control.text model=".author" id="author" name="author" placeholder="Your Name" className="form-control"
+                                    validators={{
+                                        required, 
+                                        minLength: minLength(2),
+                                        maxLength: maxLength(15)
+                                    }}
+                                />
+                                <Errors
+                                    className="text-danger"
+                                    model=".author"
+                                    show="touched"
+                                    component="div"
+                                    messages={{
+                                        required: 'Required',
+                                        minLength: 'Must be at least 2 characters',
+                                        maxLength: 'Must be 15 characters or less'
+                                    }}
+                                />
+                        </div>
+                        <div className="form-group">
+                            <Label htmlFor="text">Comment</Label>
+                                <Control.textarea model=".text" id="text" name="text" rows="6" className="form-control"/>
+                        </div>
+                        <Button type="submit" color="primary">
+                            Submit
+                        </Button>
+                    </LocalForm>
                     </ModalBody>
                 </Modal>
             </React.Fragment>
