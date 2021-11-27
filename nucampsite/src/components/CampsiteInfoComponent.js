@@ -100,7 +100,7 @@ class CommentForm extends Component {
     handleInputChange(event) {
         const target = event.target;
         const name = target.name;
-        const value = target.type === 'select' ? target.select : target.value;
+        const value = target.value;
     
         this.setState({
             [name]: value
@@ -120,19 +120,19 @@ class CommentForm extends Component {
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
-                    <LocalForm onSubmit={values => this.handleSubmit(values)}>
-                        <div className="form-group">
-                            <Label htmlFor="rating">Rating</Label>
-                                <Control.select model=".rating" id="rating" name="rating" className="form-control" defaultValue={1}>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </Control.select>
-                        </div>
-                        <div className="form-group">
-                            <Label htmlFor="author">Your Name</Label>
+                        <LocalForm onSubmit={values => this.handleSubmit(values)}>
+                            <div className="form-group">
+                                <Label htmlFor="rating">Rating</Label>
+                                    <Control.select model=".rating" id="rating" name="rating" className="form-control" defaultValue={1}>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </Control.select>
+                            </div>
+                            <div className="form-group">
+                                <Label htmlFor="author">Your Name</Label>
                                 <Control.text model=".author" id="author" name="author" placeholder="Your Name" className="form-control"
                                     validators={{
                                         required, 
@@ -151,15 +151,32 @@ class CommentForm extends Component {
                                         maxLength: 'Must be 15 characters or less'
                                     }}
                                 />
-                        </div>
-                        <div className="form-group">
-                            <Label htmlFor="text">Comment</Label>
-                                <Control.textarea model=".text" id="text" name="text" rows="6" className="form-control"/>
-                        </div>
-                        <Button type="submit" color="primary">
-                            Submit
-                        </Button>
-                    </LocalForm>
+                            </div>
+                            <div className="form-group">
+                                <Label htmlFor="text">Comment</Label> {/* NOTE: ADDED MIN AND MAX LENGTHS AND REQUIRED VALIDATORS (NOT IN INSTRUCTIONS) */}
+                                <Control.textarea model=".text" id="text" name="text" rows="6" className="form-control" 
+                                    validators={{
+                                        required, 
+                                        minLength: minLength(3),
+                                        maxLength: maxLength(100)
+                                    }}
+                                />
+                                <Errors
+                                    className="text-danger"
+                                    model=".text"
+                                    show="touched"
+                                    component="div"
+                                    messages={{
+                                        required: 'Required',
+                                        minLength: 'Must be at least 3 characters',
+                                        maxLength: 'Must be 100 characters or less'
+                                    }}
+                                />
+                            </div>
+                            <Button type="submit" color="primary">
+                                Submit
+                            </Button>
+                        </LocalForm>
                     </ModalBody>
                 </Modal>
             </React.Fragment>
